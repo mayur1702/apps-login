@@ -70,7 +70,7 @@ const FormInputArray = [
                 maxLength: 16
             },
             errors: {},
-            requiredInApi: true,
+            requiredInApi: false,
             fieldType: "input",
             type: "password"
         },
