@@ -1,14 +1,24 @@
 import axios from "axios";
 import { URLS } from "../../Urls";
 
+const checkError = (response) => {
+    if (response.error) {
+        throw new Error(response.message);
+    }
+};
+
 const Service = {
     login: async (payload) => {
         const url = URLS.baseUrl + URLS.login;
-        return (await axios.post(url, payload)).data;
+        const response = (await axios.post(url, payload)).data;
+        checkError(response);
+        return response;
     },
     register: async (payload) => {
         const url = URLS.baseUrl + URLS.register;
-        return (await axios.post(url, payload)).data;
+        const response = (await axios.post(url, payload)).data;
+        checkError(response);
+        return response;
     },
 
 };

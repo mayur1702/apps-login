@@ -1,6 +1,8 @@
 import { Box, Button } from '@material-ui/core';
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import ErrorHandling from '../../ErrorHandling';
+import Service from '../services/Service';
 import DynamicForm from '../shared/DynamicForm';
 import "./Register.scss";
 
@@ -14,6 +16,7 @@ const FormInputArray = [
                 minLength: 3
             },
             errors: {},
+            requiredInApi: true,
             fieldType: "input",
             type: "text"
         },
@@ -26,6 +29,7 @@ const FormInputArray = [
                 email: true
             },
             errors: {},
+            requiredInApi: true,
             fieldType: "input",
             type: "email"
         },
@@ -38,6 +42,7 @@ const FormInputArray = [
                 length: 10
             },
             errors: {},
+            requiredInApi: true,
             fieldType: "input",
             type: "number"
         },
@@ -51,6 +56,7 @@ const FormInputArray = [
                 maxLength: 16
             },
             errors: {},
+            requiredInApi: true,
             fieldType: "input",
             type: "password"
         },
@@ -64,6 +70,7 @@ const FormInputArray = [
                 maxLength: 16
             },
             errors: {},
+            requiredInApi: true,
             fieldType: "input",
             type: "password"
         },
@@ -73,13 +80,22 @@ class Register extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            username: "",
-            email: "",
-            password: "",
-            confirmPassword: "",
-            phoneNumber: ""
-        };
+        this.state = {};
+    }
+
+    async submitForm(value) {
+        try {
+            console.log(value);
+            const status = await Service.register(value);
+            if (status) {
+                alert("Registered successfully");
+                return;
+            }
+            alert("failed");   
+            console.log(value);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     render() {
@@ -87,7 +103,7 @@ class Register extends React.Component {
         return (
             <div className="registration-container">
                 <Box boxShadow={1} component="div" className="form-container">
-                        <DynamicForm FormInputArray={FormInputArray} />
+                        <DynamicForm FormInputArray={FormInputArray} onFormSubmit={this.submitForm.bind(this)} />
                         <Box component="div" className="margin-top-1 text-center-aligned" >
                             <Link to="/login">
                                 <i>Already a user, login!</i>                 
