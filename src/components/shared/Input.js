@@ -17,7 +17,8 @@ const Input = (props) => {
     const {
         value,
         label,
-        type = "text"
+        type = "text",
+        onInput = () => {}
     } = props;
     return (
         <TextField
@@ -26,6 +27,7 @@ const Input = (props) => {
             value={value}
             variant='outlined'
             style={style}
+            onInput={onInput}
         />
     );
 };
