@@ -1,7 +1,6 @@
-import { Box, Button } from '@material-ui/core';
-import React, { Fragment } from 'react';
+import { Box } from '@material-ui/core';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import ErrorHandling from '../../ErrorHandling';
 import Service from '../services/Service';
 import DynamicForm from '../shared/DynamicForm';
 import "./Register.scss";
@@ -53,7 +52,8 @@ const FormInputArray = [
             helperText: "",
             validations: {
                 minLength: 8,
-                maxLength: 16
+                maxLength: 16,
+                confirmFieldRef: "confirmPassword"
             },
             errors: {},
             requiredInApi: true,
@@ -67,7 +67,8 @@ const FormInputArray = [
             helperText: "",
             validations: {
                 minLength: 8,
-                maxLength: 16
+                maxLength: 16,
+                shouldMatchField: "password" 
             },
             errors: {},
             requiredInApi: false,
@@ -84,18 +85,7 @@ class Register extends React.Component {
     }
 
     async submitForm(value) {
-        try {
-            console.log(value);
-            const status = await Service.register(value);
-            if (status) {
-                alert("Registered successfully");
-                return;
-            }
-            alert("failed");   
-            console.log(value);
-        } catch (error) {
-            console.log(error);
-        }
+        return Service.register(value);
     }
 
     render() {

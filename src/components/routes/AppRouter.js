@@ -14,6 +14,7 @@ const AppRouter = () => {
             <Switch>
                 <Route path={paths.registration} component={Register} />
                 <Route path={paths.login} component={Login} />
+                <Route path="/" component={Login} />
             </Switch>
         </BrowserRouter>
     )

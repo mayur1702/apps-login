@@ -1,4 +1,4 @@
-import { TextField } from '@material-ui/core';
+import { FormControl, FormHelperText, TextField } from '@material-ui/core';
 import React from 'react';
 
 const style = {
@@ -18,17 +18,34 @@ const Input = (props) => {
         value,
         label,
         type = "text",
-        onInput = () => {}
+        onInput = () => {},
+        helperText = "",
+        errors
     } = props;
+
+    const getHelperText = () => {
+        if (errors && errors.length) {
+            return errors;
+        }
+        return helperText || " ";
+    }
+
     return (
-        <TextField
-            type={type}
-            label={label}
-            value={value}
-            variant='outlined'
-            style={style}
-            onInput={onInput}
-        />
+        <FormControl className="form-control" style={style}>
+            <TextField
+                type={type}
+                label={label}
+                value={value}
+                variant='outlined'
+                style={style}
+                onInput={onInput}
+            />
+            <FormHelperText 
+                component="div" 
+                error={errors && errors.length > 0} 
+                style={{paddingLeft: "8px", boxSizing: "border-box"}}
+            >{getHelperText()}</FormHelperText>
+        </FormControl>
     );
 };
 

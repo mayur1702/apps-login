@@ -1,7 +1,6 @@
 import { Box } from '@material-ui/core';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ErrorHandling from '../../ErrorHandling';
 import Service from '../services/Service';
 import DynamicForm from '../shared/DynamicForm';
 import "./Login.scss";
@@ -44,17 +43,7 @@ class Login extends React.Component {
     }
 
     async submitForm(value) {
-        try {
-            const status = await Service.login(value);
-            if (status) {
-                alert("login successfull");
-                return;
-            }
-            alert("login failed");   
-            console.log(value);
-        } catch (error) {
-            console.log(error);
-        }
+        return Service.login(value);
     }
 
     render() {
